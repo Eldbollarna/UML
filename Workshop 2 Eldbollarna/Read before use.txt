@@ -1,0 +1,5 @@
+The String "registryPath" in the Registry class must point to where your UniqueID.txt file is
+
+You will find the UniqueID.txt file in the Registry folder
+
+The content of the UniqueID.txt file should be a 0 
