@@ -3,3 +3,17 @@ The String "registryPath" in the Registry class must point to where your UniqueI
 You will find the UniqueID.txt file in the Registry folder
 
 The content of the UniqueID.txt file should be a 0 
+
+How to compile in Eclipse:
+
+1. Create new project (File > New > Java Project)
+2. Name it BoatClub and press Next
+3. Extract the .zip file from our github and enter the folder "src"
+4. Drag the folders view and model from the folder to the new project in Eclipse under the folder src
+5. The structure of the folders in the project should now be Boatclub > src > Model/View
+6. Enter model>Registry.java and change the following line: 
+private String registryPath = "src\\Registry"; 
+"src\\Registry" should be changed to the path where the Registry folder is found.
+It is important to remember that \ must be replaced with \\ otherwise Eclipse thinks it is a backslash.
+For example "C://Jesper/Registry" is replaced with "C://Jesper//Registry"
+7. Save changes with ctrl+S and compile the program with ctrl+f11
