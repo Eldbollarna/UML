@@ -1,0 +1,7 @@
+How to compile in Eclipse:
+
+1. Create new project (File > New > Java Project)
+2. Name it BlackJack and press Next
+3. Extract the .zip file from our github and enter the folder "src"
+4. Drag the contents of the source folder from the folder to the new project in Eclipse under the folder src
+5. Save changes with ctrl+S and compile the program with ctrl+f11
