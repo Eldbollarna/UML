@@ -142,7 +142,7 @@ public class Registry
 		
 		try {
 			/* Save to membername.txt */
-			File file = new File(registryPath + "\\" + m.getName() + ".txt");
+			File file = new File(registryPath + "\\" + m.getUniqueID() + ".txt");
 			if(file.exists()) {
 				writer = new PrintWriter(new FileWriter(file, true));
 				file.delete();
@@ -183,7 +183,7 @@ public class Registry
 		for(int i = 0; i < members.size(); i++){
 			if(members.get(i).getUniqueID() == uniqueID){
 	    		try{
-	    			String file = (registryPath + "\\" +  members.get(i).getName() + ".txt");
+	    			String file = (registryPath + "\\" +  members.get(i).getUniqueID() + ".txt");
 	    			File f = new File(file);
 	    			
 	    			if(f.delete())

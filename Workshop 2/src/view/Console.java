@@ -1,5 +1,6 @@
 package view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import model.Boat;
 
 public class Console 
 {
-
+	
 	static Registry register = new Registry();
 	static Console console = new Console();
 	static Scanner scanner = new Scanner(System.in);
@@ -86,76 +87,106 @@ public class Console
 	}
 	
 	public void addMember() {
-		System.out.println("------------------Add-Member------------------");
-		System.out.print("Name: ");
-		String name = scanner.nextLine();
-		System.out.print("PersonalNr: ");
-		int personalNr = scanner.nextInt();
-		register.addMember(name, personalNr);
+		try{ 
+			System.out.println("------------------Add-Member------------------");
+			System.out.print("Name: ");
+			String name = scanner.nextLine();
+			System.out.print("PersonalNr: ");
+			int personalNr = scanner.nextInt();
+			register.addMember(name, personalNr);
+		} catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
 	
 	}
 	public void removeMember() {
-		System.out.println("-------------------Remove-Member------------------");
-		System.out.print("Members UniqueID: ");
-		int uniqueID = scanner.nextInt();
-		register.removeMember(uniqueID);
+		try{
+			System.out.println("-------------------Remove-Member------------------");
+			System.out.print("Members UniqueID: ");
+			int uniqueID = scanner.nextInt();
+			register.removeMember(uniqueID);
+		} catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
 	}
+	
 	public void viewMember() {
-		System.out.println("------------------View-Member------------------");
-		System.out.print("Member UniqueID: ");
-		int uniqueID = scanner.nextInt();
-		for(Member m : register.getMemberList()){
-			if(m.getUniqueID() == uniqueID){
-				
-				System.out.print("Name: "+m.getName()+"\n"+
-						"PersonalNr: "+m.getPersonalNr()+"\n");
-				for(Boat b : m.getBoatList()){
-					System.out.println("Boat type: " + b.boatTypeToString() + " Length: " + b.getLengthCm() + " cm");	
-				}
-			}	
+		try { 
+			System.out.println("------------------View-Member------------------");
+			System.out.print("Member UniqueID: ");
+			int uniqueID = scanner.nextInt();
+			for(Member m : register.getMemberList()){
+				if(m.getUniqueID() == uniqueID){
+					
+					System.out.print("Name: "+m.getName()+"\n"+
+							"PersonalNr: "+m.getPersonalNr()+"\n");
+					for(Boat b : m.getBoatList()){
+						System.out.println("Boat type: " + b.boatTypeToString() + " Length: " + b.getLengthCm() + " cm");	
+					}
+				}	
+			}
+		}catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
 		}
 	}
 	public void updateMember() {
-		System.out.println("------------------Update-Member------------------");
-		System.out.print("Member UniqueID: ");
-		int uniqueID = scanner.nextInt();
-		System.out.print("New Name: ");
-		String name = scanner.next();
-		System.out.print("New PersonalNr: ");
-		int personalNr = scanner.nextInt();
-		register.updateMember(name, personalNr, uniqueID);
+		try{
+			System.out.println("------------------Update-Member------------------");
+			System.out.print("Member UniqueID: ");
+			int uniqueID = scanner.nextInt();
+			System.out.print("New Name: ");
+			String name = scanner.next();
+			System.out.print("New PersonalNr: ");		
+			int	personalNr = scanner.nextInt();
+			register.updateMember(name, personalNr, uniqueID);}
+		catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
+			
 	}
 	public void addBoat() {
-		System.out.println("------------------Add-Boat------------------");
-		System.out.println("Boattypes : Rowboat, Sailboat, Motorsailer, Canoe, Other");
-		System.out.print("Boattype: ");
-		String boat = scanner.nextLine();
-		System.out.print("Length: ");
-		int length = scanner.nextInt();
-		System.out.print("Member UnigueID: ");
-		int uniqueID = scanner.nextInt();
-		register.generateBoatTypeForAdd(boat, length, uniqueID);
+		try{
+			System.out.println("------------------Add-Boat------------------");
+			System.out.println("Boattypes : Rowboat, Sailboat, Motorsailer, Canoe, Other");
+			System.out.print("Boattype: ");
+			String boat = scanner.nextLine();
+			System.out.print("Length (cm): ");
+			int length = scanner.nextInt();
+			System.out.print("Member UnigueID: ");
+			int uniqueID = scanner.nextInt();
+			register.generateBoatTypeForAdd(boat, length, uniqueID);
+		} catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
 	}
 	public void removeBoat() {
 		System.out.println("------------------Remove-Boat------------------");
-		System.out.print("BoatID: ");
-		int boatID = scanner.nextInt();
-		System.out.print("Member UniqueID: ");
-		int uniqueID = scanner.nextInt();
-		register.removeBoat(boatID, uniqueID);
+		try{
+			System.out.print("BoatID: ");
+			int boatID = scanner.nextInt();
+			System.out.print("Member UniqueID: ");
+			int uniqueID = scanner.nextInt();
+			register.removeBoat(boatID, uniqueID);
+		} catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
 	}
-	public void updateBoat() {
-		System.out.println("------------------Update-Boat------------------");
-		System.out.print("Member UniqueID: ");
-		int uniqueID = scanner.nextInt();
-		System.out.print("Old BoatID: ");
-		int oldBoatID = scanner.nextInt();
-		System.out.println("Boattypes : Rowboat, Sailboat, Motorsailer, Canoe, Other");
-		System.out.print("New Boattype: ");
-		String boat = scanner.next();
-		System.out.print("New Length: ");
-		int length = scanner.nextInt();
-		register.removeBoat(oldBoatID, uniqueID);
-		register.generateBoatTypeForAdd(boat, length, uniqueID);
+	public void updateBoat(){
+		try{
+			System.out.println("------------------Update-Boat------------------");
+			System.out.print("Member UniqueID: ");
+			int uniqueID = scanner.nextInt();
+			System.out.print("Old BoatID: ");
+			int oldBoatID = scanner.nextInt();
+			System.out.println("Boattypes : Rowboat, Sailboat, Motorsailer, Canoe, Other");
+			System.out.print("New Boattype: ");
+			String boat = scanner.next();
+			System.out.print("New Length (cm): ");
+			int length = scanner.nextInt();
+			register.removeBoat(oldBoatID, uniqueID);
+			register.generateBoatTypeForAdd(boat, length, uniqueID);
+		} catch(InputMismatchException e){
+			System.out.println("Invalid input. Please try again.");
+		}
 	}
 }
