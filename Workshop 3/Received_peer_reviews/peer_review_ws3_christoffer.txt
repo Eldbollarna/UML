@@ -1,0 +1,16 @@
+Peer review
+
+Still has string dependency between the controller and the view. It isn't handled at all since it still depends on the strings that were there before, s, q, p, and h. If the view changes then so must the controller, but you won't notice anything if any of them do. So it's not handled yet.
+
+Shouldn't the a_game and a_view get instanciated in the constructor?
+
+This code also uses the observer pattern with the view doing the observing. I'm still not sure how it works. The EventSource code that does implement the Observable code resides in the BlackJack.model package, but it isn't really a model, is it?
+The observable code is stolen from Wikipedia
+
+The duplicate code is removed and placed in the Dealer class. However, this creates a dependency to the Card class that is not visible in the class diagram.
+
+In the diagram there is also missing a Specialization that the Dealer has to the Player. Since the Dealer is a type of Player there should be an arrow that shows this relationship.
+There also does not seem to be a dependency from the RulesFactory to the Soft17HitStrategy. Neither is there any dependencies from the Dealer to the NewGameStrategies. They are however used in the code.
+The Diagram displays that there is a dependency between PlayGame and IView, but in the code there is an association.
+
+The implmenentation has not passed the grade 3 critera since the controller still has a string dependency between itself and the view. As I am not sure about the Observer pattern either it might not have passed it because of that.
