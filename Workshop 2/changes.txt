@@ -1,0 +1,11 @@
+After recieving peer reviews from other students we have decided to make the following changes:
+
+"No members with the same name can be added":
+Instead of saving the members as 'FirstName_LastName.txt" we will save it as "uniqueID.txt".
+That means we can have members with the same name.
+
+"No input validation at all, resulting in crashes":
+We decided to fix this by using try/catch that handles string inputs when the program expects an integer.
+
+"We miss units (for input) for boats and error messages":
+We added units and error messages.
