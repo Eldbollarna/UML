@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.List;
@@ -11,12 +12,22 @@ import model.Boat;
 public class Console 
 {
 	
-	static Registry register = new Registry();
+	static Registry register;
 	static Console console = new Console();
 	static Scanner scanner = new Scanner(System.in);
 	static String input;
+	static String registryPath = "C:\\Users\\Eleonor\\Eclipse\\Komplettering\\src\\Registry\\";		//Path to the registry folder where next uniqueID and members are stored
 	
 	public static void main(String[] args) {
+		File file = new File(registryPath);
+		if(file.isDirectory()){
+			register = new Registry(file);
+		}
+		else{
+			System.out.println("The registryPath is not a directory!");
+			System.exit(0);
+		}
+		
 		System.out.print("Register Index"+"\n"+
 		"To Add Member press A"+"\n"+
 		"To Remove Member press R"+"\n"+

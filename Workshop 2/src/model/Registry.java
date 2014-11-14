@@ -12,14 +12,17 @@ import java.util.Scanner;
 
 public class Registry 
 {
-	private String registryPath = "src\\Registry";		//Path to the registry folder where next uniqueID and members are stored
 	private static int uniqueID;									//The last used uniqueID				
 	private List<Member> members;									//Contains all members currently in the registry
 	private Scanner scan;											//Used to get all member and boat information from the .txt files
 	private PrintWriter writer;
+	private File registryFile;
+	private String registryPath;
 	
 	/* Load all members and boats from the member .txt's into the registry*/
-	public Registry(){
+	public Registry(File f){
+		registryFile = f;
+		registryPath = f.getAbsolutePath();
 		members = new ArrayList<Member>();
 		initializeUniqueID();
 		initializeMembers();
@@ -209,66 +212,57 @@ public class Registry
 	
 	/* Load all members and boats from .txt files */
 	public void initializeMembers(){
-		try {
-			File file = new File(registryPath);
-			if(file.isDirectory()){
-				for(File f : file.listFiles()) {
-					if(f.getName().contains("UniqueID.txt"))
-						break;
-					scan = new Scanner(f);
-					String name = scan.nextLine();
-					int personalNr = scan.nextInt();
-					int uniqueID = scan.nextInt();
-					
-					Member m = new Member(name, personalNr, uniqueID);
-					 
-					while(scan.hasNext()){
-						String line = scan.nextLine();
-						if(line.equals("-Boat-")){
-							int boatID = scan.nextInt();
-							scan.nextLine();
-							String boatString = scan.nextLine(); //Read the line containing boat type
-							int length = scan.nextInt();		 //Read the line containing length
-							Boat b;
-							
-							switch (boatString) { 				 //Set the correct boat type
-							case "Rowboat":
-								b = new Boat(Boat.BoatType.Rowboat, length);
-								break;
-							case "Sailboat":
-								b = new Boat(Boat.BoatType.Sailboat, length);
-								break;
-							case "Motorsailer":
-								b = new Boat(Boat.BoatType.Motorsailer, length);
-								break;
-							case "Canoe":
-								b = new Boat(Boat.BoatType.Canoe, length);
-								break;
-								
-							
-							default:
-								b = new Boat(Boat.BoatType.Other, length);
-								break;
-							}
-							b.setBoatID(boatID);
-							m.addBoat(b);
-						}
-						
-					}
-					members.add(m);	//Member is finished and can be added to member registry
-					scan.close();
-				}
-			}
+		try{
+			for(File f : registryFile.listFiles()) {
+				if(f.getName().contains("UniqueID.txt"))
+					break;
+				scan = new Scanner(f);
+				String name = scan.nextLine();
+				int personalNr = scan.nextInt();
+				int uniqueID = scan.nextInt();
 				
-			else
-				System.out.println("registryPath is not a directory.");
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("Directory not found. Make sure the registryPath is correct.");
-		} catch (NoSuchElementException ne){
-			ne.printStackTrace();
+				Member m = new Member(name, personalNr, uniqueID);
+				 
+				while(scan.hasNext()){
+					String line = scan.nextLine();
+					if(line.equals("-Boat-")){
+						int boatID = scan.nextInt();
+						scan.nextLine();
+						String boatString = scan.nextLine(); //Read the line containing boat type
+						int length = scan.nextInt();		 //Read the line containing length
+						Boat b;
+						
+						switch (boatString) { 				 //Set the correct boat type
+						case "Rowboat":
+							b = new Boat(Boat.BoatType.Rowboat, length);
+							break;
+						case "Sailboat":
+							b = new Boat(Boat.BoatType.Sailboat, length);
+							break;
+						case "Motorsailer":
+							b = new Boat(Boat.BoatType.Motorsailer, length);
+							break;
+						case "Canoe":
+							b = new Boat(Boat.BoatType.Canoe, length);
+							break;
+							
+						
+						default:
+							b = new Boat(Boat.BoatType.Other, length);
+							break;
+						}
+						b.setBoatID(boatID);
+						m.addBoat(b);
+					}
+					
+				}
+				members.add(m);	//Member is finished and can be added to member registry
+				scan.close();
+			}
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
 		}
-	}
+}
 	
 	/* Update existing member*/
 	public void updateMember(String name, int personalNr, int uniqueID) {
