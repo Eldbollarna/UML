@@ -12,7 +12,7 @@ public class Card {
   }
   
   public enum Value {
-    Two,
+    Deuce,
     Three,
     Four,
     Five,

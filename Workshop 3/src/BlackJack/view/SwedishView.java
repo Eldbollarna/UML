@@ -1,5 +1,9 @@
 package BlackJack.view;
 
+import java.io.IOException;
+
+import BlackJack.controller.PlayGame.MenuItems;
+
 public class SwedishView implements IView 
     {
         public void DisplayWelcomeMessage()
@@ -12,14 +16,30 @@ public class SwedishView implements IView
             System.out.println("Skriv 'p' för att Spela, 'h' för nytt kort, 's' för att stanna 'q' för att avsluta\n");
         }
         
-        public int GetInput()
+        public MenuItems GetInput()
         {
-          try {
-            return System.in.read();
-          } catch (java.io.IOException e) {
-            System.out.println("" + e);
-            return 0;
-          }
+            int i;
+			try {
+				i = System.in.read();
+            
+            switch (i) {
+			case 'p':
+				return MenuItems.Play;
+			case 'h':
+				return MenuItems.Hit;
+			case 's':
+				return MenuItems.Stand;
+			case 'q':
+				return MenuItems.Quit;
+			}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return MenuItems.Invalid;
+        }
+        
+        public void InvalidInput() {
+        	System.out.print("Invalid input");
         }
         
         public void DisplayCard(BlackJack.model.Card a_card)

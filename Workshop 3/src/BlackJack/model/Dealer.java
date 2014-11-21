@@ -55,17 +55,7 @@ public class Dealer extends Player {
   }
 
   public boolean IsDealerWinner(Player a_player) {
-	  if (a_player.CalcScore() > g_maxScore) {
-	      return true;
-	    } else if (CalcScore() > g_maxScore) {
-	      return false;
-	    }
-	  if(a_player.CalcScore() == CalcScore()){
-		  return m_tieRules.IsDealerWinner();
-	  }
-	  else{
-		  return a_player.CalcScore() <= CalcScore();
-	  }
+	 return m_tieRules.IsDealerWinner(a_player.CalcScore(), CalcScore());
   }
 
   public boolean IsGameOver() {

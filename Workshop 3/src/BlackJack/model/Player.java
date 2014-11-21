@@ -2,11 +2,14 @@ package BlackJack.model;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Player {
+public class Player extends Observable {
 
   private List<Card> m_hand;
   protected final int g_maxScore = 21;
+
 
   public Player()
   {
@@ -16,6 +19,8 @@ public class Player {
   public void DealCard(Card a_addToHand)
   {
     m_hand.add(a_addToHand);
+    setChanged();
+    notifyObservers(a_addToHand);
   }
   
   public Iterable<Card> GetHand()
@@ -69,4 +74,6 @@ public class Player {
 
     return score;
   }
+ 
+
 }

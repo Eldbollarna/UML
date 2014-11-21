@@ -1,6 +1,5 @@
 package BlackJack;
 
-import BlackJack.model.EventSource;
 import BlackJack.model.Game;
 import BlackJack.view.*;
 import BlackJack.controller.*;
@@ -10,21 +9,16 @@ public class Program
 
   public static void main(String[] a_args)
   {
+    Game g = new Game();
+    IView v = new SimpleView();
+    PlayGame ctrl = new PlayGame();
     
-    System.out.println("Enter any key to start the game!");
+    CardObserver playerObserver = new CardObserver("Player");
+	CardObserver dealerObserver = new CardObserver("Dealer");
+	g.getPlayer().addObserver(playerObserver);
+	g.getDealer().addObserver(dealerObserver);
+    while(ctrl.Play(g,v));
     
-    // create an event source - reads from stdin
-    final EventSource eventSource = new EventSource();
-
-    // create an observer
-    final PlayGame responseHandler = new PlayGame();
-
-    // subscribe the observer to the event source
-    eventSource.addObserver(responseHandler);
-
-    // starts the event thread
-    Thread thread = new Thread(eventSource);
-    thread.start();
-
   }
+  
 }

@@ -1,7 +1,5 @@
 package BlackJack.model;
 
-import BlackJack.model.rules.TieRules;
-
 public class Game {
 
   private Dealer m_dealer;
@@ -58,6 +56,13 @@ public class Game {
   {
     return m_player.CalcScore();
   }
+  
+  public Player getPlayer(){
+	  return m_player;
+  }
     
+  public Dealer getDealer(){
+	  return m_dealer;
+  }
   
 }
